@@ -1,0 +1,156 @@
+.navigation {
+    &__checkbox {
+        display: none; // انا محتاج دا عشان موضوع اني اعمله تشك بس
+    }
+
+    &__button {
+        background-color: $color-white;
+        height: 7rem; // عملناها اكبر عشان تغطي علي اللون الاخضر اللي تحتها 
+        width: 7rem;
+        position: fixed;
+        top: 6rem; // هنا اصغر من اللي تحت عشان هي كدا كدا اكبر منها ف هتغطي عليها 
+        right: 6rem;
+        border-radius: 50%;
+        z-index: 2000; // عشان تكون فوق كل حاجة 
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__background {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000; // عشان اخليها وررا الدايرة البيضا
+        transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
+
+        //transform: scale(80);
+    }
+
+    &__nav {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1500;
+
+        opacity: 0; // عشان اخفيها بس ف الاول 
+        width: 0; // عشان تكون مختفية ف اول الصفحة ومتعملش علامة بالماوس عليها (كدا كأنها مش موجودة)ب 
+        transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55); // جبناها من موقع كيوبك بزير
+    }
+
+    &__list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        list-style: none;
+        text-align: center;
+        width: 100%; // اديته العرض دا عشان يكون شكله كويس اما يجي يشتغل ميظهرش من اليمين ويكون رخم
+    }
+
+    &__item {
+        margin: 1rem;
+    }
+
+    &__link {
+
+        &:link,
+        &:visited {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 300;
+            padding: 1rem 2rem;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+            // اللون دا بتاع الشريط الابيض اللي بيعدي تحت الكلام والميل اللي هنا دا هو الميل بتاع الشريط وهو ماشي
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+            background-size: 220%; // دا حجم الشريط نصه فاضي ونصه ابيض
+            transition: all .4s;
+
+            span {
+                // دا بتاع الرقم اللي جنب الكلام
+                margin-right: 1.5rem;
+                display: inline-block; // عشان اعرف اديله مارجن
+            }
+        }
+
+        &:hover,
+        &:active {
+            background-position: 100%; // كدا بحرك الخلفية البيضا اللي ورا الكلام عشان تيجي تحته كلها
+            color: $color-primary;
+            transform: translateX(1rem); // بحرك البوكس كله يمين شوية
+        }
+    }
+
+
+    //FUNCTIONALITY
+    &__checkbox:checked~&__background {
+        transform: scale(80); // عشان اخلي الخفية الخضرا ف الشاشة كلها 
+    }
+
+    &__checkbox:checked~&__nav {
+        opacity: 1;
+        width: 100%; // بشغل النافبار كدا وبديله فوق ترانزشن 
+    }
+
+
+    //ICON
+    &__icon {
+        position: relative;
+        margin-top: 3.5rem;
+
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark-3;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+        }
+
+        &::before {
+            top: -.8rem;
+        }
+
+        &::after {
+            top: .8rem;
+        }
+    }
+
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+
+    &__checkbox:checked+&__button &__icon {
+        background-color: transparent;
+    }
+
+    // الاتنين دول عشان اعمل شكل الاكس اللي هيطلع
+    &__checkbox:checked+&__button &__icon::before {
+        top: 0;
+        transform: rotate(135deg);
+    }
+
+    &__checkbox:checked+&__button &__icon::after {
+        top: 0;
+        transform: rotate(-135deg);
+    }
+}
